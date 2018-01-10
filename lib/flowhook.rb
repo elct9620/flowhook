@@ -1,5 +1,8 @@
 require 'optparse'
 require 'ostruct'
+require 'thread'
+require 'json'
+require 'net/http'
 
 require 'flowhook/version'
 
