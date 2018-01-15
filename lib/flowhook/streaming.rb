@@ -44,7 +44,6 @@ module Flowhook
     end
 
     def streaming
-      STDOUT.puts uri
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
         http.request request do |response|
           response.read_body do |chunk|
@@ -62,7 +61,7 @@ module Flowhook
 
     def uri
       @uri ||= URI("#{STREAMING_URL}?filter=#{@flows.join(',')}").tap do |uri|
-        uri.query += 'active-true' # TODO: Add options can change state
+        uri.query += 'active-true' # TODO: Add options  can change state
         uri.query += '&user=1' if @private
       end
     end
