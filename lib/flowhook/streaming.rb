@@ -3,9 +3,10 @@ module Flowhook
   class Streaming
     STREAMING_URL = 'https://stream.flowdock.com/flows'.freeze
 
-    def initialize(token, flows = [], events = [])
+    def initialize(token, use_private = false, flows = [], events = [])
       @token = token
       @flows = flows
+      @private = use_private ? 1 : 0
       @events = events
       @queue = Queue.new
       @thread = nil
@@ -43,6 +44,7 @@ module Flowhook
     end
 
     def streaming
+      STDOUT.puts uri
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
         http.request request do |response|
           response.read_body do |chunk|
@@ -59,7 +61,9 @@ module Flowhook
     end
 
     def uri
-      @uri ||= URI("#{STREAMING_URL}?filter=#{@flows.join(',')}")
+      @uri ||= URI("#{STREAMING_URL}?filter=#{@flows.join(',')}").tap do |uri|
+        uri.query += '&user=1' if @private
+      end
     end
   end
 end

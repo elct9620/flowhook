@@ -19,7 +19,7 @@ module Flowhook
     private
 
     def setup_options
-      %w[url path token flows events daemonize help version].each do |option|
+      %w[url path token private flows events daemonize help version].each do |option|
         send("setup_#{option}_option")
       end
     end
@@ -39,6 +39,12 @@ module Flowhook
     def setup_token_option
       on('-t', '--token TOKEN', String, 'The personal token to access messages') do |token|
         options.token = token
+      end
+    end
+
+    def setup_private_option
+      on('-P', '--[no-]private', 'Enable to receive private message') do |enabled|
+        options.private = enabled
       end
     end
 
@@ -79,6 +85,7 @@ module Flowhook
       options.path = Dir.pwd
       options.url = nil
       options.token = nil
+      options.private = false
       options.flows = []
       options.events = []
       options.daemonize = false

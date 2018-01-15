@@ -103,6 +103,7 @@ module Flowhook
     def initialize_stream
       @stream = Streaming.new(
         @options.token,
+        @options.private,
         @options.flows,
         @options.events
       )
