@@ -1,5 +1,3 @@
-require 'pp'
-
 module Flowhook
   # The worker to sending webhook
   class Worker
