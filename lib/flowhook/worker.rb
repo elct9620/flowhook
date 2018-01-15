@@ -1,3 +1,5 @@
+Thread.abort_on_exception=true
+
 module Flowhook
   # The worker to sending webhook
   class Worker
