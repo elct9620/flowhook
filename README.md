@@ -22,7 +22,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+* `-t` - The Personal API Token
+* `-F` - The Flows Ex. `org/general`
 
 ## Development
 

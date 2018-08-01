@@ -46,7 +46,9 @@ module Flowhook
     def streaming
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
         http.request request do |response|
+          raise 'Invalid Token' if response.is_a?(Net::HTTPUnauthorized)
           response.read_body do |chunk|
+            STDOUT.puts chunk
             queue chunk
           end
         end
